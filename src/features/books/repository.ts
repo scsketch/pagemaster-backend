@@ -1,4 +1,4 @@
-import prisma from '../../lib/prisma'; // TODO: make it so db operation is generic
+import prisma from '../../prisma'; // TODO: make it so db operation is generic
 import { Book, BookInput } from './model';
 
 export const findAll = () => {

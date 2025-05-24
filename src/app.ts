@@ -1,25 +1,29 @@
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-
-import routes from "./index";
-import { errorHandler, notFoundHandler } from "./middlewares";
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import { apiRouter } from './routes';
+import { errorHandler, notFoundHandler } from './middlewares';
 
 const app = express();
 
 // Configuration
 app.use(
   helmet({
-    hsts: process.env.NODE_ENV === "production",
-  })
+    hsts: process.env.NODE_ENV === 'production',
+  }),
 );
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api", routes);
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
 
-// Middlewares
+// API routes
+app.use('/api/v1', apiRouter);
+
+// Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);
 
