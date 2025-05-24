@@ -1,0 +1,35 @@
+{
+  "name": "pagemaster-backend",
+  "version": "0.1.0",
+  "description": "RESTful API backend for bookstore inventory",
+  "keywords": [
+    "bookstore",
+    "book",
+    "api"
+  ],
+  "license": "ISC",
+  "author": "Samuel Cohen",
+  "type": "commonjs",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
