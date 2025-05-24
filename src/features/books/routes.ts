@@ -1,6 +1,6 @@
 import { Router, RequestHandler } from 'express';
 import { getAllBooks, getBookById, createBook, updateBook, deleteBook } from './controller';
-import { authenticateToken } from '../../middlewares/auth';
+import { authenticateToken } from '../../middleware/auth';
 
 const router = Router();
 

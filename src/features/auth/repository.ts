@@ -1,4 +1,4 @@
-import prisma from '../../prisma';
+import prisma from '../../config/prisma';
 import { User, AuthInput } from './model';
 
 export const findByEmail = (email: string) => {

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { RequestHandler } from 'express';
-import { authenticateToken } from './middlewares/auth';
+import { authenticateToken } from './middleware/auth';
 import booksRouter from './features/books/routes';
 import authRouter from './features/auth/routes';
 

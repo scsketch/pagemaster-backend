@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { apiRouter } from './routes';
-import { errorHandler, notFoundHandler } from './middlewares';
+import { errorHandler, notFoundHandler } from './middleware';
 
 const app = express();
 
