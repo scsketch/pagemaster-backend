@@ -7,3 +7,6 @@ dist/
 # Environment
 .env
 .env.local
+
+# Prisma
+generated/prisma
