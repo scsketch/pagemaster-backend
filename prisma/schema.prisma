@@ -16,6 +16,7 @@ datasource db {
 
 model Book {
   id     Int     @id @default(autoincrement())
+  bookId String  @unique @default(uuid())
   title  String
   author String
   genre  String
@@ -26,6 +27,7 @@ model Book {
 
 model User {
   id        Int      @id @default(autoincrement())
+  userId    String   @unique @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
