@@ -1,15 +1,9 @@
 import { Request, Response } from 'express';
-import * as bookService from './books.service';
+import * as bookService from './service';
 
 export const getAllBooks = async (_req: Request, res: Response) => {
-  const book = await bookService.getAllBooks();
-  res.status(201).json(book);
-};
-
-export const createBook = async (req: Request, res: Response) => {
-  console.log('GOT IT: ', req.body);
-  const book = await bookService.createBook(req.body);
-  res.status(201).json(book);
+  const books = await bookService.getAllBooks();
+  res.status(200).json(books);
 };
 
 export const getBookById = async (req: Request, res: Response) => {
@@ -20,6 +14,11 @@ export const getBookById = async (req: Request, res: Response) => {
     return;
   }
   res.status(200).json(book);
+};
+
+export const createBook = async (req: Request, res: Response) => {
+  const book = await bookService.createBook(req.body);
+  res.status(201).json(book);
 };
 
 export const updateBook = async (req: Request, res: Response) => {

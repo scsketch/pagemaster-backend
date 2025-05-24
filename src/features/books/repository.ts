@@ -1,5 +1,5 @@
 import prisma from '../../lib/prisma'; // TODO: make it so db operation is generic
-import { Book, BookInput } from './books.model';
+import { Book, BookInput } from './model';
 
 export const findAll = () => {
   return prisma.book.findMany();

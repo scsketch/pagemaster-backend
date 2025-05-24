@@ -1,5 +1,5 @@
-import * as bookRepo from './books.repository';
-import { BookInput } from './books.model';
+import * as bookRepo from './repository';
+import { BookInput } from './model';
 
 export const getAllBooks = () => {
   return bookRepo.findAll();
