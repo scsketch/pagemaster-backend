@@ -37,6 +37,7 @@ export class AuthController {
       res.status(201).json({ user: userWithoutPassword, token });
     } catch (error) {
       if (error instanceof UserExistsError) {
+        console.error('Error during signup, user already exists');
         res.status(400).json({ error: 'The email has already been registered.' });
         return;
       }

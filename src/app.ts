@@ -3,21 +3,18 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { apiRouter } from './routes';
 import { errorHandler, notFoundHandler } from './middleware';
+import { securityMiddleware } from './middleware/security';
 
 const app = express();
 
-// Configuration
-app.use(
-  helmet({
-    hsts: process.env.NODE_ENV === 'production',
-  }),
-);
-app.use(
-  cors({
-    origin: 'http://localhost:8081',
-  }),
-);
+// Parse JSON bodies
 app.use(express.json());
+
+// Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+
+// Apply security middleware
+app.use(securityMiddleware);
 
 // Health check
 app.get('/health', (req, res) => {
