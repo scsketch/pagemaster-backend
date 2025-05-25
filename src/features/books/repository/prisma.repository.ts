@@ -1,6 +1,6 @@
 import prisma from '../../../config/prisma';
 import { BookRepository } from './repository';
-import { Book, BookInput } from '../model';
+import { Book, CreateBookInput, UpdateBookInput } from '../model';
 import { RepositoryError, RecordNotFoundError } from '../errors';
 import { PrismaClientKnownRequestError } from '../../../../generated/prisma/runtime/library';
 
@@ -38,7 +38,7 @@ export class PrismaBookRepository implements BookRepository {
     }
   }
 
-  async create(data: BookInput): Promise<Book> {
+  async create(data: CreateBookInput): Promise<Book> {
     try {
       const book = await prisma.book.create({ data });
       return convertPrismaBook(book);
@@ -48,7 +48,7 @@ export class PrismaBookRepository implements BookRepository {
     }
   }
 
-  async update(id: string, data: BookInput): Promise<Book> {
+  async update(id: string, data: UpdateBookInput): Promise<Book> {
     try {
       const book = await prisma.book.update({ where: { bookId: id }, data });
       return convertPrismaBook(book);

@@ -8,7 +8,7 @@ export const createRouter = (controller: BookController): Router => {
   router.get('/', controller.getBooks);
   router.get('/:id', controller.getBookById);
   router.post('/', controller.createBook);
-  router.put('/:id', controller.updateBook);
+  router.patch('/:id', controller.updateBook);
   router.delete('/:id', controller.deleteBook);
 
   return router;

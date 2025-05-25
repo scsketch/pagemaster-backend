@@ -1,4 +1,4 @@
-import { BookInput } from './model';
+import { CreateBookInput, UpdateBookInput } from './model';
 import { BookError, BookNotFoundError, RepositoryError, RecordNotFoundError } from './errors';
 import { BookRepository } from './repository/repository';
 
@@ -30,7 +30,7 @@ export class BookService {
     }
   }
 
-  async createBook(data: BookInput) {
+  async createBook(data: CreateBookInput) {
     try {
       return await this.repository.create(data);
     } catch (error) {
@@ -39,7 +39,7 @@ export class BookService {
     }
   }
 
-  async updateBook(id: string, data: BookInput) {
+  async updateBook(id: string, data: UpdateBookInput) {
     try {
       const existingBook = await this.repository.findById(id);
       if (!existingBook) {

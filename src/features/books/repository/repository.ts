@@ -1,9 +1,9 @@
-import { Book, BookInput } from '../model';
+import { Book, CreateBookInput, UpdateBookInput } from '../model';
 
 export interface BookRepository {
   findAll(): Promise<Book[]>;
   findById(id: string): Promise<Book | null>;
-  create(data: BookInput): Promise<Book>;
-  update(id: string, data: BookInput): Promise<Book>;
+  create(data: CreateBookInput): Promise<Book>;
+  update(id: string, data: UpdateBookInput): Promise<Book>;
   remove(id: string): Promise<void>;
 }

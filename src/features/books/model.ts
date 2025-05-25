@@ -7,9 +7,11 @@ export interface Book {
   price: number;
 }
 
-export interface BookInput {
+export interface CreateBookInput {
   title: string;
   author: string;
   genre: string;
   price: number;
 }
+
+export type UpdateBookInput = Partial<CreateBookInput>;

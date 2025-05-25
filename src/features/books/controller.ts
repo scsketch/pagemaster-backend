@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { BookService } from './service';
-import { BookInput } from './model';
+import { CreateBookInput, UpdateBookInput } from './model';
 import { BookError, BookNotFoundError } from './errors';
 
 export class BookController {
@@ -32,7 +32,7 @@ export class BookController {
 
   createBook = async (req: Request, res: Response) => {
     try {
-      const bookData: BookInput = req.body;
+      const bookData: CreateBookInput = req.body;
       const newBook = await this.bookService.createBook(bookData);
       res.status(201).json(newBook);
     } catch (error) {
@@ -47,7 +47,7 @@ export class BookController {
 
   updateBook = async (req: Request, res: Response) => {
     try {
-      const bookData: BookInput = req.body;
+      const bookData: UpdateBookInput = req.body;
       const updatedBook = await this.bookService.updateBook(req.params.id, bookData);
       res.json(updatedBook);
     } catch (error) {
