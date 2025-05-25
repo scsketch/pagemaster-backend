@@ -1,6 +1,11 @@
 import prisma from '../../config/prisma'; // TODO: make it so db operation is generic
-import { RepositoryError } from './errors';
+import { RepositoryError, RecordNotFoundError } from './errors';
 import { Book, BookInput } from './model';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+
+const PRISMA_ERROR_CODES = {
+  RECORD_NOT_FOUND: 'P2025',
+} as const;
 
 // Helper function to convert Prisma book to our Book interface
 const convertPrismaBook = (prismaBook: any): Book => ({
@@ -55,6 +60,9 @@ export const remove = async (id: string): Promise<void> => {
   try {
     await prisma.book.delete({ where: { bookId: id } });
   } catch (error: unknown) {
+    if (error instanceof PrismaClientKnownRequestError && error.code === PRISMA_ERROR_CODES.RECORD_NOT_FOUND) {
+      throw new RecordNotFoundError(id);
+    }
     console.error(`Database error while deleting book with id ${id}:`, error);
     throw new RepositoryError('Failed to delete book');
   }

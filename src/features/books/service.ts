@@ -1,6 +1,7 @@
 import * as bookRepo from './repository';
 import { BookInput } from './model';
 import { BookError, BookNotFoundError } from './errors';
+import { RepositoryError, RecordNotFoundError } from './errors';
 
 export const getBooks = async () => {
   try {
@@ -65,7 +66,14 @@ export const deleteBook = async (id: string) => {
   try {
     await bookRepo.remove(id);
   } catch (error) {
+    if (error instanceof RecordNotFoundError) {
+      console.log(`Book with id ${id} not found during deletion`);
+      return;
+    }
     console.error('Error deleting book:', error);
-    throw new BookError('Failed to delete book');
+    if (error instanceof RepositoryError) {
+      throw new BookError('Failed to delete book');
+    }
+    throw error;
   }
 };

@@ -20,3 +20,10 @@ export class RepositoryError extends Error {
     this.name = 'DatabaseError';
   }
 }
+
+export class RecordNotFoundError extends RepositoryError {
+  constructor(id: string) {
+    super(`Record with id ${id} does not exist`);
+    this.name = 'RecordNotFoundError';
+  }
+}
