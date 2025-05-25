@@ -2,14 +2,27 @@ import { Request, Response } from 'express';
 import { BookService } from './service';
 import { CreateBookInput, UpdateBookInput } from './model';
 import { BookError, BookNotFoundError } from './errors';
+import { PaginationParams } from './repository/repository';
 
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   getBooks = async (req: Request, res: Response) => {
     try {
-      const books = await this.bookService.getBooks();
-      res.json(books);
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 10;
+
+      // Validate pagination parameters
+      if (page < 1 || limit < 1 || limit > 100) {
+        res.status(400).json({
+          error: 'Invalid pagination parameters. Page and limit must be positive numbers, and limit cannot exceed 100.',
+        });
+        return;
+      }
+
+      const params: PaginationParams = { page, limit };
+      const result = await this.bookService.getBooks(params);
+      res.json(result);
     } catch (error) {
       console.error('Error in getBooks:', error);
       res.status(500).json({ error: 'Failed to fetch books' });

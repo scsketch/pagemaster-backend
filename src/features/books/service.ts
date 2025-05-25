@@ -1,13 +1,13 @@
 import { CreateBookInput, UpdateBookInput } from './model';
 import { BookError, BookNotFoundError, RepositoryError, RecordNotFoundError } from './errors';
-import { BookRepository } from './repository/repository';
+import { BookRepository, PaginationParams, PaginatedResult } from './repository/repository';
 
 export class BookService {
   constructor(private readonly repository: BookRepository) {}
 
-  async getBooks() {
+  async getBooks(params?: PaginationParams) {
     try {
-      return await this.repository.findAll();
+      return await this.repository.findAll(params);
     } catch (error) {
       console.error('Error while fetching books:', error);
       throw new BookError('Failed to fetch books');

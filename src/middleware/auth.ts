@@ -17,13 +17,6 @@ export const createAuthMiddleware = (authService: AuthService) => {
   const JWT_SECRET = process.env.JWT_SECRET;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log('Auth middleware - Request:', {
-      method: req.method,
-      path: req.path,
-      ip: req.ip,
-      headers: req.headers,
-    });
-
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
 

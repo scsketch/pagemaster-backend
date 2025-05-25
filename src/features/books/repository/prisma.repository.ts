@@ -1,5 +1,5 @@
 import prisma from '../../../config/prisma';
-import { BookRepository } from './repository';
+import { BookRepository, PaginationParams, PaginatedResult } from './repository';
 import { Book, CreateBookInput, UpdateBookInput } from '../model';
 import { RepositoryError, RecordNotFoundError } from '../errors';
 import { PrismaClientKnownRequestError } from '../../../../generated/prisma/runtime/library';
@@ -18,10 +18,28 @@ const convertPrismaBook = (prismaBook: any): Book => ({
 });
 
 export class PrismaBookRepository implements BookRepository {
-  async findAll(): Promise<Book[]> {
+  async findAll(params?: PaginationParams): Promise<PaginatedResult<Book>> {
     try {
-      const books = await prisma.book.findMany();
-      return books.map(convertPrismaBook);
+      const page = params?.page ?? 1;
+      const limit = params?.limit ?? 10;
+      const skip = (page - 1) * limit;
+
+      const [books, total] = await Promise.all([
+        prisma.book.findMany({
+          skip,
+          take: limit,
+          orderBy: { id: 'asc' },
+        }),
+        prisma.book.count(),
+      ]);
+
+      return {
+        data: books.map(convertPrismaBook),
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      };
     } catch (error: unknown) {
       console.error('Database error while fetching all books:', error);
       throw new RepositoryError('Failed to fetch books');

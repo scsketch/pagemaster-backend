@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { apiRouter } from './routes';
 import { errorHandler, notFoundHandler } from './middleware';
 import { securityMiddleware } from './middleware/security';
+import { routeLogger } from './middleware/logging';
 
 const app = express();
 
@@ -12,6 +13,9 @@ app.use(express.json());
 
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
+
+// Apply logging middleware
+app.use(routeLogger);
 
 // Apply security middleware
 app.use(securityMiddleware);
