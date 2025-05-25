@@ -1,33 +1,40 @@
 // Service
-export class ServiceError extends Error {
+export class AuthError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'AuthError';
   }
 }
 
-export class LoginError extends ServiceError {
+export class LoginError extends AuthError {
   constructor(message: string) {
     super(message);
     this.name = 'LoginError';
   }
 }
 
-export class SignupError extends ServiceError {
+export class SignupError extends AuthError {
   constructor(message: string) {
     super(message);
     this.name = 'SignupError';
   }
 }
 
-export class UserExistsError extends ServiceError {
+export class UserExistsError extends AuthError {
   constructor(email: string) {
-    super(`An account with email ${email} already exists`);
+    super(`User with email ${email} already exists`);
     this.name = 'UserExistsError';
   }
 }
 
-export class LogoutError extends ServiceError {
+export class InvalidCredentialsError extends AuthError {
+  constructor() {
+    super('Invalid email or password');
+    this.name = 'InvalidCredentialsError';
+  }
+}
+
+export class LogoutError extends AuthError {
   constructor(message: string) {
     super(message);
     this.name = 'LogoutError';
@@ -38,6 +45,6 @@ export class LogoutError extends ServiceError {
 export class RepositoryError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'DatabaseError';
+    this.name = 'RepositoryError';
   }
 }

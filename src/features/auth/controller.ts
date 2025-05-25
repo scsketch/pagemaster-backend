@@ -1,55 +1,64 @@
 import { Request, Response } from 'express';
-import * as service from './service';
-import { AuthInput, SignUpInput } from './model';
-import { UserExistsError } from './errors';
+import { AuthService } from './service';
+import { LoginInput, SignUpInput, User } from './model';
+import { UserExistsError, InvalidCredentialsError, AuthError } from './errors';
 
-export const login = async (req: Request, res: Response): Promise<void> => {
-  const { email, password }: AuthInput = req.body;
+export class AuthController {
+  constructor(private readonly service: AuthService) {}
 
-  try {
-    const result = await service.login(email, password);
-    res.status(200).json(result);
-  } catch (error) {
-    console.error(`Login failed for email ${email}:`, error);
-    // Generic message for all login failures
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-};
+  getService = () => this.service;
 
-export const signup = async (req: Request, res: Response): Promise<void> => {
-  const { email, password, confirmPassword }: SignUpInput = req.body;
-
-  if (password !== confirmPassword) {
-    console.error(`Signup failed: Passwords do not match for email ${email}`);
-    res.status(400).json({ message: 'Bad request' });
-    return;
-  }
-
-  try {
-    const result = await service.signup(email, password);
-    res.status(201).json(result);
-  } catch (error) {
-    if (error instanceof UserExistsError) {
-      console.error(`Signup failed: User already exists with email ${email}`);
-      res.status(400).json({ message: 'The email has already been registered.' });
-      return;
+  login = async (req: Request, res: Response) => {
+    try {
+      const { email, password }: LoginInput = req.body;
+      const result = await this.service.login(email, password);
+      res.json(result);
+    } catch (error) {
+      if (error instanceof InvalidCredentialsError) {
+        res.status(401).json({ error: error.message });
+        return;
+      }
+      console.error('Unexpected error during login:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-    console.error(`Signup failed for email ${email}:`, error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+  };
 
-export const logout = async (req: Request, res: Response): Promise<void> => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+  signup = async (req: Request, res: Response) => {
+    try {
+      const { email, password, confirmPassword }: SignUpInput = req.body;
 
-  try {
-    if (token) {
-      await service.logout(token);
+      if (password !== confirmPassword) {
+        res.status(400).json({ error: 'Passwords do not match' });
+        return;
+      }
+
+      const { user, token } = await this.service.signup({ email, password });
+      const { password: _, ...userWithoutPassword } = user;
+      res.status(201).json({ user: userWithoutPassword, token });
+    } catch (error) {
+      if (error instanceof UserExistsError) {
+        res.status(400).json({ error: 'The email has already been registered.' });
+        return;
+      }
+      console.error('Unexpected error during signup:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-    res.status(204).send();
-  } catch (error) {
-    console.error('Logout failed:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+  };
+
+  logout = async (req: Request, res: Response) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader?.startsWith('Bearer ')) {
+        res.status(401).json({ error: 'No token provided' });
+        return;
+      }
+
+      const token = authHeader.split(' ')[1];
+      await this.service.logout(token);
+      res.status(200).json({ message: 'Successfully logged out' });
+    } catch (error) {
+      console.error('Unexpected error during logout:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+}

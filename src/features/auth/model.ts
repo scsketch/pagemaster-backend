@@ -1,5 +1,4 @@
 export interface User {
-  id: number;
   userId: string;
   email: string;
   password: string;
@@ -7,7 +6,7 @@ export interface User {
   updatedAt: Date;
 }
 
-export interface AuthInput {
+export interface LoginInput {
   email: string;
   password: string;
 }
@@ -21,4 +20,9 @@ export interface SignUpInput {
 export interface AuthResponse {
   token: string;
   user: Omit<User, 'password'>;
+}
+
+export interface UserInput {
+  email: string;
+  password: string;
 }

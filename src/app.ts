@@ -20,7 +20,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
 
-// API routes
+// API
 app.use('/api/v1', apiRouter);
 
 // Error handling

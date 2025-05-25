@@ -1,92 +1,88 @@
-import * as authRepo from './repository';
-import { AuthInput, AuthResponse } from './model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { AuthRepository } from './repository/';
+import { User, UserInput } from './model';
+import { UserExistsError, InvalidCredentialsError, LoginError, SignupError, LogoutError, AuthError } from './errors';
 import redisClient from '../../config/redis';
-import { ServiceError, LoginError, SignupError, UserExistsError, LogoutError } from './errors';
 
-const JWT_SECRET = process.env.JWT_SECRET;
 const BLACKLIST_PREFIX = 'bl_';
+const TOKEN_EXPIRATION = '24h';
 
-export const login = async (email: string, password: string): Promise<AuthResponse> => {
-  try {
-    const user = await authRepo.findByEmail(email);
-    if (!user) {
-      throw new LoginError('Invalid email or password');
-    }
+export class AuthService {
+  constructor(private readonly repository: AuthRepository) {}
 
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      throw new LoginError('Invalid email or password');
-    }
-
+  login = async (email: string, password: string): Promise<{ token: string; user: User }> => {
+    const JWT_SECRET = process.env.JWT_SECRET;
     if (!JWT_SECRET) {
-      throw new ServiceError('JWT_SECRET is not configured');
+      console.error('Login failed: JWT secret is not configured');
+      throw new SignupError('Login failed');
     }
 
-    const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: '24h' });
-    const { password: _, ...userWithoutPassword } = user;
+    try {
+      const user = await this.repository.findByEmail(email);
+      if (!user) {
+        throw new InvalidCredentialsError();
+      }
 
-    console.log('Successfully logged in user with email: ', email);
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        throw new InvalidCredentialsError();
+      }
 
-    return {
-      token,
-      user: userWithoutPassword,
-    };
-  } catch (error) {
-    console.error('Unexpected error during login:', error);
-    throw new LoginError('Failed to login');
-  }
-};
-
-export const signup = async (email: string, password: string): Promise<AuthResponse> => {
-  try {
-    const existingUser = await authRepo.findByEmail(email);
-    if (existingUser) {
-      throw new UserExistsError(email);
+      const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
+      return { token, user };
+    } catch (error) {
+      console.error('Error during login:', error);
+      throw new LoginError('Login failed');
     }
+  };
 
+  signup = async (userData: UserInput): Promise<{ token: string; user: User }> => {
+    const JWT_SECRET = process.env.JWT_SECRET;
     if (!JWT_SECRET) {
-      throw new ServiceError('JWT_SECRET is not configured');
+      console.error('Sign up failed: JWT secret is not configured');
+      throw new SignupError('Signup failed');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await authRepo.create({ email, password: hashedPassword });
+    try {
+      const existingUser = await this.repository.findByEmail(userData.email);
+      if (existingUser) {
+        throw new UserExistsError(userData.email);
+      }
 
-    const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: '24h' });
-    const { password: _, ...userWithoutPassword } = user;
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
+      const user = await this.repository.create({
+        ...userData,
+        password: hashedPassword,
+      });
 
-    console.log('Successfully signed up user with email: ', email);
-
-    return {
-      token,
-      user: userWithoutPassword,
-    };
-  } catch (error) {
-    console.error('Unexpected error during signup:', error);
-    if (error instanceof UserExistsError) {
-      throw error;
+      const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
+      return { token, user };
+    } catch (error) {
+      if (error instanceof UserExistsError) {
+        throw error;
+      }
+      console.error('Error during signup:', error);
+      throw new SignupError('Signup failed');
     }
-    throw new SignupError('Failed to create account');
-  }
-};
+  };
 
-export const logout = async (token: string): Promise<void> => {
-  try {
-    await redisClient.set(`${BLACKLIST_PREFIX}${token}`, '1', 'EX', 24 * 60 * 60);
-    console.log('Successfully logged out user');
-  } catch (error) {
-    console.error('Failed to blacklist token:', error);
-    throw new LogoutError('Failed to logout');
-  }
-};
+  logout = async (token: string): Promise<void> => {
+    try {
+      await redisClient.set(`${BLACKLIST_PREFIX}${token}`, '1', 'EX', 24 * 60 * 60);
+    } catch (error: unknown) {
+      console.error('Failed to blacklist token:', error);
+      throw new LogoutError('Logout failed');
+    }
+  };
 
-export const isTokenBlacklisted = async (token: string): Promise<boolean> => {
-  try {
-    const exists = await redisClient.get(`${BLACKLIST_PREFIX}${token}`);
-    return exists !== null;
-  } catch (error) {
-    console.error('Failed to check token blacklist:', error);
-    throw new ServiceError('Failed to verify token status');
-  }
-};
+  isTokenBlacklisted = async (token: string): Promise<boolean> => {
+    try {
+      const exists = await redisClient.get(`${BLACKLIST_PREFIX}${token}`);
+      return exists !== null;
+    } catch (error) {
+      console.error('Failed to check token blacklist:', error);
+      throw new AuthError('Failed to verify token status');
+    }
+  };
+}

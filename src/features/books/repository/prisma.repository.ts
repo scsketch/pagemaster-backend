@@ -2,7 +2,7 @@ import prisma from '../../../config/prisma';
 import { BookRepository } from './repository';
 import { Book, BookInput } from '../model';
 import { RepositoryError, RecordNotFoundError } from '../errors';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { PrismaClientKnownRequestError } from '../../../../generated/prisma/runtime/library';
 
 const PRISMA_ERROR_CODES = {
   RECORD_NOT_FOUND: 'P2025',
