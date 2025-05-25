@@ -14,7 +14,6 @@ export interface LoginInput {
 export interface SignUpInput {
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 export interface AuthResponse {

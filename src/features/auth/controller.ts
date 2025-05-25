@@ -3,6 +3,17 @@ import { AuthService } from './service';
 import { LoginInput, SignUpInput, User } from './model';
 import { UserExistsError, InvalidCredentialsError, AuthError } from './errors';
 
+const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+
+const setAuthCookie = (res: Response, token: string) => {
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: COOKIE_MAX_AGE,
+  });
+};
+
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
@@ -12,6 +23,9 @@ export class AuthController {
     try {
       const { email, password }: LoginInput = req.body;
       const result = await this.service.login(email, password);
+
+      setAuthCookie(res, result.token);
+
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
@@ -25,15 +39,15 @@ export class AuthController {
 
   signup = async (req: Request, res: Response) => {
     try {
-      const { email, password, confirmPassword }: SignUpInput = req.body;
-
-      if (password !== confirmPassword) {
-        res.status(400).json({ error: 'Passwords do not match' });
-        return;
-      }
+      const { email, password }: SignUpInput = req.body;
 
       const { user, token } = await this.service.signup({ email, password });
       const { password: _, ...userWithoutPassword } = user;
+
+      // Set the token cookie which will be used by web clients
+      setAuthCookie(res, token);
+
+      // Also include token in response which is for native clients
       res.status(201).json({ user: userWithoutPassword, token });
     } catch (error) {
       if (error instanceof UserExistsError) {
