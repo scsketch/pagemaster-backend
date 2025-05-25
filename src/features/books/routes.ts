@@ -1,16 +1,16 @@
-import { Router, RequestHandler } from 'express';
-import { getBooks, getBookById, createBook, updateBook, deleteBook } from './controller';
+import { RequestHandler, Router } from 'express';
+import { BookFactory } from './factory';
 import { authenticateToken } from '../../middleware/auth';
 
 const router = Router();
+const controller = BookFactory.getController();
 
-// All routes are protected with authentication
+// Protected routes
 router.use(authenticateToken as RequestHandler);
-
-router.get('/', getBooks);
-router.get('/:id', getBookById);
-router.post('/', createBook);
-router.patch('/:id', updateBook);
-router.delete('/:id', deleteBook);
+router.get('/', controller.getBooks);
+router.get('/:id', controller.getBookById);
+router.post('/', controller.createBook);
+router.put('/:id', controller.updateBook);
+router.delete('/:id', controller.deleteBook);
 
 export default router;
