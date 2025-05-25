@@ -1,11 +1,11 @@
-import { CreateBookInput, UpdateBookInput } from './model';
+import { Book, BookDetail, CreateBookInput, UpdateBookInput } from './model';
 import { BookError, BookNotFoundError, RepositoryError, RecordNotFoundError } from './errors';
 import { BookRepository, PaginationParams, PaginatedResult } from './repository/repository';
 
 export class BookService {
   constructor(private readonly repository: BookRepository) {}
 
-  async getBooks(params?: PaginationParams) {
+  async getBooks(params?: PaginationParams): Promise<PaginatedResult<Book>> {
     try {
       return await this.repository.findAll(params);
     } catch (error) {
@@ -14,7 +14,7 @@ export class BookService {
     }
   }
 
-  async getBookById(id: string) {
+  async getBookById(id: string): Promise<BookDetail> {
     try {
       const book = await this.repository.findById(id);
       if (!book) {

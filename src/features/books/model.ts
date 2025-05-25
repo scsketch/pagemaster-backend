@@ -7,11 +7,16 @@ export interface Book {
   price: number;
 }
 
+export interface BookDetail extends Book {
+  description: string;
+}
+
 export interface CreateBookInput {
   title: string;
   author: string;
   genre: string;
   price: number;
+  description: string;
 }
 
 export type UpdateBookInput = Partial<CreateBookInput>;

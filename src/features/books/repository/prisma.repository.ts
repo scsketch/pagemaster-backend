@@ -1,6 +1,6 @@
 import prisma from '../../../config/prisma';
 import { BookRepository, PaginationParams, PaginatedResult } from './repository';
-import { Book, CreateBookInput, UpdateBookInput } from '../model';
+import { Book, BookDetail, CreateBookInput, UpdateBookInput } from '../model';
 import { RepositoryError, RecordNotFoundError } from '../errors';
 import { PrismaClientKnownRequestError } from '../../../../generated/prisma/runtime/library';
 
@@ -15,6 +15,11 @@ const convertPrismaBook = (prismaBook: any): Book => ({
   author: prismaBook.author,
   genre: prismaBook.genre,
   price: Number(prismaBook.price),
+});
+
+const convertPrismaBookDetail = (prismaBook: any): BookDetail => ({
+  ...convertPrismaBook(prismaBook),
+  description: prismaBook.description,
 });
 
 export class PrismaBookRepository implements BookRepository {
@@ -46,10 +51,10 @@ export class PrismaBookRepository implements BookRepository {
     }
   }
 
-  async findById(id: string): Promise<Book | null> {
+  async findById(id: string): Promise<BookDetail | null> {
     try {
       const book = await prisma.book.findUnique({ where: { bookId: id } });
-      return book ? convertPrismaBook(book) : null;
+      return book ? convertPrismaBookDetail(book) : null;
     } catch (error: unknown) {
       console.error(`Database error while finding book with id ${id}:`, error);
       throw new RepositoryError('Failed to find book');

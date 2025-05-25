@@ -15,7 +15,7 @@ export interface PaginatedResult<T> {
 
 export interface BookRepository {
   findAll(params?: PaginationParams): Promise<PaginatedResult<Book>>;
-  findById(id: string): Promise<Book | null>;
+  findById(id: string): Promise<BookDetail | null>;
   create(data: CreateBookInput): Promise<Book>;
   update(id: string, data: UpdateBookInput): Promise<Book>;
   remove(id: string): Promise<void>;
