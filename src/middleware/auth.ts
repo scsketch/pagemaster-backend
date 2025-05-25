@@ -17,14 +17,9 @@ export const createAuthMiddleware = (authService: AuthService) => {
   const JWT_SECRET = process.env.JWT_SECRET;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    // Try cookie first (used by web)
-    const cookieToken = req.cookies.token;
-
-    // Fallback to Authorization header (used by native)
     const authHeader = req.headers.authorization;
-    const headerToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
-
-    const token = cookieToken || headerToken;
+    console.log('auth: ', authHeader);
+    const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
 
     if (!token) {
       console.error('Authentication failed: No token provided');

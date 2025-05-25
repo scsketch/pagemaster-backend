@@ -12,6 +12,8 @@ const apiRouter = Router();
 const authController = AuthFactory.getController();
 const booksController = BookFactory.getController();
 
+// Auth middleware
+
 // Routers
 const authRouter = createAuthRouter(authController);
 const booksRouter = createBooksRouter(booksController);
@@ -21,7 +23,6 @@ apiRouter.use('/auth', authRouter);
 
 // Protected routes
 const authMiddleware = createAuthMiddleware(authController.getService());
-
 apiRouter.use('/books', authMiddleware as RequestHandler, booksRouter);
 
 export { apiRouter };

@@ -3,17 +3,6 @@ import { AuthService } from './service';
 import { LoginInput, SignUpInput, User } from './model';
 import { UserExistsError, InvalidCredentialsError, AuthError } from './errors';
 
-const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
-
-const setAuthCookie = (res: Response, token: string) => {
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: COOKIE_MAX_AGE,
-  });
-};
-
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
@@ -22,10 +11,10 @@ export class AuthController {
   login = async (req: Request, res: Response) => {
     try {
       const { email, password }: LoginInput = req.body;
+
       const result = await this.service.login(email, password);
 
-      setAuthCookie(res, result.token);
-
+      console.log('Successfully logged in user: ', result.user.userId);
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
@@ -44,10 +33,7 @@ export class AuthController {
       const { user, token } = await this.service.signup({ email, password });
       const { password: _, ...userWithoutPassword } = user;
 
-      // Set the token cookie which will be used by web clients
-      setAuthCookie(res, token);
-
-      // Also include token in response which is for native clients
+      console.log('Successfully signed up user: ', user.userId);
       res.status(201).json({ user: userWithoutPassword, token });
     } catch (error) {
       if (error instanceof UserExistsError) {
@@ -63,16 +49,25 @@ export class AuthController {
     try {
       const authHeader = req.headers.authorization;
       if (!authHeader?.startsWith('Bearer ')) {
-        res.status(401).json({ error: 'No token provided' });
+        console.log('No token provided for logout - returning success');
+        res.status(200).json({ message: 'Successfully logged out' });
         return;
       }
 
       const token = authHeader.split(' ')[1];
-      await this.service.logout(token);
+      try {
+        await this.service.logout(token);
+        console.log('Successfully blacklisted token');
+      } catch (error) {
+        // If blacklisting fails, we still want to return success
+        console.error('Failed to blacklist token:', error);
+      }
+
+      console.log('Successfully logged out user');
       res.status(200).json({ message: 'Successfully logged out' });
     } catch (error) {
       console.error('Unexpected error during logout:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(200).json({ message: 'Successfully logged out' });
     }
   };
 }

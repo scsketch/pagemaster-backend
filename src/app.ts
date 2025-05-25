@@ -3,7 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { apiRouter } from './routes';
 import { errorHandler, notFoundHandler } from './middleware';
-const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -15,12 +14,10 @@ app.use(
 );
 app.use(
   cors({
-    origin: 'http://localhost:8081', // frontend URL
-    credentials: true,
+    origin: 'http://localhost:8081',
   }),
 );
 app.use(express.json());
-app.use(cookieParser());
 
 // Health check
 app.get('/health', (req, res) => {
