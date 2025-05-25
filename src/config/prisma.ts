@@ -6,7 +6,7 @@ const prisma = new PrismaClient({
       id: true,
     },
     user: {
-      password: true,
+      id: true,
     },
   },
 });

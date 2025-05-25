@@ -41,7 +41,16 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     req.user = decoded;
     next();
   } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      console.error('Authentication failed: Token expired');
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    if (error instanceof jwt.JsonWebTokenError) {
+      console.error('Authentication failed: Invalid token');
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    // For any other unexpected errors
     console.error('Authentication failed:', error);
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 };
