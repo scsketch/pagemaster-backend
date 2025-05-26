@@ -61,20 +61,20 @@ export class PrismaBookRepository implements BookRepository {
     }
   }
 
-  async create(data: CreateBookInput): Promise<Book> {
+  async create(data: CreateBookInput): Promise<BookDetail> {
     try {
       const book = await prisma.book.create({ data });
-      return convertPrismaBook(book);
+      return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error('Database error while creating book:', error);
       throw new RepositoryError('Failed to create book');
     }
   }
 
-  async update(id: string, data: UpdateBookInput): Promise<Book> {
+  async update(id: string, data: UpdateBookInput): Promise<BookDetail> {
     try {
       const book = await prisma.book.update({ where: { bookId: id }, data });
-      return convertPrismaBook(book);
+      return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error(`Database error while updating book with id ${id}:`, error);
       throw new RepositoryError('Failed to update book');

@@ -22,7 +22,7 @@ model Book {
   author      String  @db.VarChar(255)
   genre       String  @db.VarChar(100)
   price       Decimal @db.Decimal(10, 2)
-  description String  @db.VarChar(1000)
+  description String? @db.VarChar(1000)
 
   @@index([title, author])
   @@map("books")

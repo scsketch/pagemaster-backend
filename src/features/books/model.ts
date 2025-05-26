@@ -16,7 +16,7 @@ export interface CreateBookInput {
   author: string;
   genre: string;
   price: number;
-  description: string;
+  description?: string;
 }
 
 export type UpdateBookInput = Partial<CreateBookInput>;
