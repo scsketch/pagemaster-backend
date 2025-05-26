@@ -16,9 +16,10 @@ const rateLimitOptions = {
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS?.split(','), // List of allowed domains
+  origin: process.env.NODE_ENV === 'production' ? process.env.ALLOWED_ORIGINS?.split(',') : true, // Allow all origins in development
   credentials: true, // Allow cookies/authentication headers to be sent
-  methods: ['GET', 'POST', 'DELETE', 'PATCH'], // Methods used by the client
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Added OPTIONS for preflight requests
+  allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly allow these headers
 };
 
 // Helmet configuration

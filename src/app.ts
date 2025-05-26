@@ -8,6 +8,9 @@ import { routeLogger } from './middleware/logging';
 
 const app = express();
 
+// Enable CORS for all routes
+app.use(cors());
+
 // Parse JSON bodies
 app.use(express.json());
 
