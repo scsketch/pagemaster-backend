@@ -1,8 +1,9 @@
-import { Book, CreateBookInput, UpdateBookInput } from '../model';
+import { Book, BookDetail, CreateBookInput, UpdateBookInput } from '../model';
 
 export interface PaginationParams {
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
+  search?: string;
 }
 
 export interface PaginatedResult<T> {
@@ -16,7 +17,7 @@ export interface PaginatedResult<T> {
 export interface BookRepository {
   findAll(params?: PaginationParams): Promise<PaginatedResult<Book>>;
   findById(id: string): Promise<BookDetail | null>;
-  create(data: CreateBookInput): Promise<Book>;
-  update(id: string, data: UpdateBookInput): Promise<Book>;
+  create(data: CreateBookInput): Promise<BookDetail>;
+  update(id: string, data: UpdateBookInput): Promise<BookDetail>;
   remove(id: string): Promise<void>;
 }

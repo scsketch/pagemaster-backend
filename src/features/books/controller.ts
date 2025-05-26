@@ -11,6 +11,7 @@ export class BookController {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 10;
+      const search = req.query.search as string | undefined;
 
       // Validate pagination parameters
       if (page < 1 || limit < 1 || limit > 100) {
@@ -20,7 +21,7 @@ export class BookController {
         return;
       }
 
-      const params: PaginationParams = { page, limit };
+      const params: PaginationParams = { page, limit, search };
       const result = await this.bookService.getBooks(params);
       res.json(result);
     } catch (error) {

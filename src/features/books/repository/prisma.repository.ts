@@ -28,15 +28,27 @@ export class PrismaBookRepository implements BookRepository {
       const page = params?.page ?? 1;
       const limit = params?.limit ?? 10;
       const skip = (page - 1) * limit;
+      const search = params?.search;
 
-      const [books, total] = await Promise.all([
-        prisma.book.findMany({
-          skip,
-          take: limit,
-          orderBy: { id: 'asc' },
-        }),
-        prisma.book.count(),
-      ]);
+      const where = search
+        ? {
+            OR: [
+              { title: { contains: search, mode: 'insensitive' as const } },
+              { author: { contains: search, mode: 'insensitive' as const } },
+            ],
+          }
+        : {};
+
+      // First get the total count of matching records
+      const total = await prisma.book.count({ where });
+
+      // Then get the paginated results
+      const books = await prisma.book.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { id: 'asc' },
+      });
 
       return {
         data: books.map(convertPrismaBook),
