@@ -4,6 +4,7 @@ export interface PaginationParams {
   page?: number;
   limit?: number;
   search?: string;
+  genre?: string;
 }
 
 export interface PaginatedResult<T> {

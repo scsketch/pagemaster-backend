@@ -29,15 +29,23 @@ export class PrismaBookRepository implements BookRepository {
       const limit = params?.limit ?? 10;
       const skip = (page - 1) * limit;
       const search = params?.search;
+      const genre = params?.genre;
 
-      const where = search
-        ? {
-            OR: [
-              { title: { contains: search, mode: 'insensitive' as const } },
-              { author: { contains: search, mode: 'insensitive' as const } },
-            ],
-          }
-        : {};
+      const where = {
+        AND: [
+          // Search condition
+          search
+            ? {
+                OR: [
+                  { title: { contains: search, mode: 'insensitive' as const } },
+                  { author: { contains: search, mode: 'insensitive' as const } },
+                ],
+              }
+            : {},
+          // Genre condition
+          genre ? { genre: { equals: genre, mode: 'insensitive' as const } } : {},
+        ],
+      };
 
       // First get the total count of matching records
       const total = await prisma.book.count({ where });
