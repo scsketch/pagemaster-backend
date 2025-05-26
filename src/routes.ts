@@ -12,8 +12,6 @@ const apiRouter = Router();
 const authController = AuthFactory.getController();
 const booksController = BookFactory.getController();
 
-// Auth middleware
-
 // Routers
 const authRouter = createAuthRouter(authController);
 const booksRouter = createBooksRouter(booksController);
