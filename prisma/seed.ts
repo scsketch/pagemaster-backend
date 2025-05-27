@@ -34,7 +34,6 @@ async function main() {
   // Seed books
   const books = [
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'Homer',
       genre: 'Mystery',
@@ -42,7 +41,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Fyodor Dostoevsky',
       genre: 'Non-Fiction',
@@ -50,7 +48,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'Harper Lee',
       genre: 'Non-Fiction',
@@ -58,7 +55,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Homer',
       genre: 'Adventure',
@@ -66,7 +62,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'James Joyce',
       genre: 'Biography',
@@ -74,7 +69,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'Leo Tolstoy',
       genre: 'Historical',
@@ -82,7 +76,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Harper Lee',
       genre: 'Sci-Fi',
@@ -90,7 +83,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Leo Tolstoy',
       genre: 'Mystery',
@@ -98,7 +90,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Aldous Huxley',
       genre: 'Adventure',
@@ -106,7 +97,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Herman Melville',
       genre: 'Biography',
@@ -114,7 +104,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'Homer',
       genre: 'Horror',
@@ -122,7 +111,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'James Joyce',
       genre: 'Fantasy',
@@ -130,7 +118,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'Homer',
       genre: 'Fiction',
@@ -138,7 +125,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Jane Austen',
       genre: 'Adventure',
@@ -146,7 +132,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Aldous Huxley',
       genre: 'Historical',
@@ -154,7 +139,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'F. Scott Fitzgerald',
       genre: 'Historical',
@@ -162,7 +146,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Fyodor Dostoevsky',
       genre: 'Fantasy',
@@ -170,7 +153,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'Harper Lee',
       genre: 'Fantasy',
@@ -178,7 +160,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Homer',
       genre: 'Fiction',
@@ -186,7 +167,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'F. Scott Fitzgerald',
       genre: 'Biography',
@@ -194,7 +174,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'George Orwell',
       genre: 'Adventure',
@@ -202,7 +181,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Fyodor Dostoevsky',
       genre: 'Biography',
@@ -210,7 +188,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Homer',
       genre: 'Biography',
@@ -218,7 +195,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'F. Scott Fitzgerald',
       genre: 'Romance',
@@ -226,7 +202,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Leo Tolstoy',
       genre: 'Horror',
@@ -234,7 +209,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'George Orwell',
       genre: 'Biography',
@@ -242,7 +216,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Fyodor Dostoevsky',
       genre: 'Fantasy',
@@ -250,7 +223,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Jane Austen',
       genre: 'Sci-Fi',
@@ -258,7 +230,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'Herman Melville',
       genre: 'Romance',
@@ -266,7 +237,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'F. Scott Fitzgerald',
       genre: 'Fiction',
@@ -274,7 +244,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Leo Tolstoy',
       genre: 'Horror',
@@ -282,7 +251,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Fyodor Dostoevsky',
       genre: 'Non-Fiction',
@@ -290,7 +258,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Aldous Huxley',
       genre: 'Biography',
@@ -298,7 +265,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'George Orwell',
       genre: 'Sci-Fi',
@@ -306,7 +272,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'F. Scott Fitzgerald',
       genre: 'Adventure',
@@ -314,7 +279,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Homer',
       genre: 'Fiction',
@@ -322,7 +286,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'Herman Melville',
       genre: 'Romance',
@@ -330,7 +293,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'Fyodor Dostoevsky',
       genre: 'Horror',
@@ -338,7 +300,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Fyodor Dostoevsky',
       genre: 'Fiction',
@@ -346,7 +307,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'James Joyce',
       genre: 'Biography',
@@ -354,7 +314,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'George Orwell',
       genre: 'Fiction',
@@ -362,7 +321,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Herman Melville',
       genre: 'Fantasy',
@@ -370,7 +328,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'James Joyce',
       genre: 'Adventure',
@@ -378,7 +335,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'F. Scott Fitzgerald',
       genre: 'Sci-Fi',
@@ -386,7 +342,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Herman Melville',
       genre: 'Sci-Fi',
@@ -394,7 +349,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Leo Tolstoy',
       genre: 'Horror',
@@ -402,7 +356,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Harper Lee',
       genre: 'Sci-Fi',
@@ -410,7 +363,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'James Joyce',
       genre: 'Horror',
@@ -418,7 +370,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Leo Tolstoy',
       genre: 'Horror',
@@ -426,7 +377,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Jane Austen',
       genre: 'Fiction',
@@ -434,7 +384,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Harper Lee',
       genre: 'Adventure',
@@ -442,7 +391,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'Homer',
       genre: 'Sci-Fi',
@@ -450,7 +398,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Jane Austen',
       genre: 'Biography',
@@ -458,7 +405,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'George Orwell',
       genre: 'Fiction',
@@ -466,7 +412,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'To Kill a Mockingbird',
       author: 'Fyodor Dostoevsky',
       genre: 'Adventure',
@@ -474,7 +419,6 @@ async function main() {
       description: bookDescriptions['To Kill a Mockingbird'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Aldous Huxley',
       genre: 'Horror',
@@ -482,7 +426,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'F. Scott Fitzgerald',
       genre: 'Biography',
@@ -490,7 +433,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Jane Austen',
       genre: 'Historical',
@@ -498,7 +440,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Leo Tolstoy',
       genre: 'Non-Fiction',
@@ -506,7 +447,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'Leo Tolstoy',
       genre: 'Horror',
@@ -514,7 +454,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'George Orwell',
       genre: 'Mystery',
@@ -522,7 +461,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'James Joyce',
       genre: 'Mystery',
@@ -530,7 +468,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'Aldous Huxley',
       genre: 'Sci-Fi',
@@ -538,7 +475,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'F. Scott Fitzgerald',
       genre: 'Biography',
@@ -546,7 +482,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'Fyodor Dostoevsky',
       genre: 'Mystery',
@@ -554,7 +489,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'F. Scott Fitzgerald',
       genre: 'Mystery',
@@ -562,7 +496,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'James Joyce',
       genre: 'Sci-Fi',
@@ -570,7 +503,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'Jane Austen',
       genre: 'Mystery',
@@ -578,7 +510,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'James Joyce',
       genre: 'Sci-Fi',
@@ -586,7 +517,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'Aldous Huxley',
       genre: 'Non-Fiction',
@@ -594,7 +524,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'James Joyce',
       genre: 'Adventure',
@@ -602,7 +531,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'Jane Austen',
       genre: 'Historical',
@@ -610,7 +538,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Great Gatsby',
       author: 'Harper Lee',
       genre: 'Adventure',
@@ -618,7 +545,6 @@ async function main() {
       description: bookDescriptions['The Great Gatsby'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'Jane Austen',
       genre: 'Historical',
@@ -626,7 +552,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Aldous Huxley',
       genre: 'Biography',
@@ -634,7 +559,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'Fyodor Dostoevsky',
       genre: 'Mystery',
@@ -642,7 +566,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'James Joyce',
       genre: 'Romance',
@@ -650,7 +573,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'George Orwell',
       genre: 'Fantasy',
@@ -658,7 +580,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'Homer',
       genre: 'Adventure',
@@ -666,7 +587,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Herman Melville',
       genre: 'Mystery',
@@ -674,7 +594,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'F. Scott Fitzgerald',
       genre: 'Fiction',
@@ -682,7 +601,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'Aldous Huxley',
       genre: 'Fiction',
@@ -690,7 +608,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Harper Lee',
       genre: 'Horror',
@@ -698,7 +615,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'F. Scott Fitzgerald',
       genre: 'Mystery',
@@ -706,7 +622,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'George Orwell',
       genre: 'Romance',
@@ -714,7 +629,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: '1984',
       author: 'Fyodor Dostoevsky',
       genre: 'Horror',
@@ -722,7 +636,6 @@ async function main() {
       description: bookDescriptions['1984'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Leo Tolstoy',
       genre: 'Historical',
@@ -730,7 +643,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'James Joyce',
       genre: 'Sci-Fi',
@@ -738,7 +650,6 @@ async function main() {
       description: bookDescriptions['The Odyssey'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'Aldous Huxley',
       genre: 'Fantasy',
@@ -746,7 +657,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'Crime and Punishment',
       author: 'Aldous Huxley',
       genre: 'Adventure',
@@ -754,7 +664,6 @@ async function main() {
       description: bookDescriptions['Crime and Punishment'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'George Orwell',
       genre: 'Non-Fiction',
@@ -762,7 +671,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Harper Lee',
       genre: 'Sci-Fi',
@@ -770,7 +678,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'F. Scott Fitzgerald',
       genre: 'Adventure',
@@ -778,7 +685,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'F. Scott Fitzgerald',
       genre: 'Horror',
@@ -786,7 +692,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'Brave New World',
       author: 'James Joyce',
       genre: 'Horror',
@@ -794,7 +699,6 @@ async function main() {
       description: bookDescriptions['Brave New World'],
     },
     {
-      bookId: uuidv4(),
       title: 'Ulysses',
       author: 'George Orwell',
       genre: 'Fiction',
@@ -802,7 +706,6 @@ async function main() {
       description: bookDescriptions['Ulysses'],
     },
     {
-      bookId: uuidv4(),
       title: 'War and Peace',
       author: 'F. Scott Fitzgerald',
       genre: 'Fiction',
@@ -810,7 +713,6 @@ async function main() {
       description: bookDescriptions['War and Peace'],
     },
     {
-      bookId: uuidv4(),
       title: 'Pride and Prejudice',
       author: 'Leo Tolstoy',
       genre: 'Historical',
@@ -818,7 +720,6 @@ async function main() {
       description: bookDescriptions['Pride and Prejudice'],
     },
     {
-      bookId: uuidv4(),
       title: 'Moby Dick',
       author: 'Homer',
       genre: 'Romance',
@@ -826,7 +727,6 @@ async function main() {
       description: bookDescriptions['Moby Dick'],
     },
     {
-      bookId: uuidv4(),
       title: 'The Odyssey',
       author: 'Jane Austen',
       genre: 'Biography',

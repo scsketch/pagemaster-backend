@@ -39,7 +39,7 @@ export class AuthService {
         throw new InvalidCredentialsError();
       }
 
-      const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
+      const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
       return { token, user: this.removePassword(user) };
     } catch (error) {
       console.error('Error during login:', error);
@@ -67,7 +67,7 @@ export class AuthService {
         password: hashedPassword,
       });
 
-      const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
+      const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
       return { token, user: this.removePassword(user) };
     } catch (error) {
       if (error instanceof UserExistsError) {

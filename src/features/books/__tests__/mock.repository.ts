@@ -38,12 +38,12 @@ export class MockBookRepository implements BookRepository {
   }
 
   async findById(id: string): Promise<BookDetail | null> {
-    return this.books.find((book) => book.bookId === id) || null;
+    return this.books.find((book) => book.id === id) || null;
   }
 
   async create(data: CreateBookInput): Promise<BookDetail> {
     const newBook: BookDetail = {
-      bookId: uuidv4(),
+      id: uuidv4(),
       ...data,
       description: data.description || '',
     };
@@ -52,7 +52,7 @@ export class MockBookRepository implements BookRepository {
   }
 
   async update(id: string, data: UpdateBookInput): Promise<BookDetail> {
-    const index = this.books.findIndex((book) => book.bookId === id);
+    const index = this.books.findIndex((book) => book.id === id);
     if (index === -1) {
       throw new Error('Book not found');
     }
@@ -66,7 +66,7 @@ export class MockBookRepository implements BookRepository {
   }
 
   async remove(id: string): Promise<void> {
-    const index = this.books.findIndex((book) => book.bookId === id);
+    const index = this.books.findIndex((book) => book.id === id);
     if (index === -1) {
       throw new Error('Book not found');
     }

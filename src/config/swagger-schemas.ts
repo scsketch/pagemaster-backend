@@ -20,7 +20,7 @@
  *         user:
  *           type: object
  *           properties:
- *             userId:
+ *             id:
  *               type: string
  *             email:
  *               type: string
@@ -44,7 +44,7 @@
  *         user:
  *           type: object
  *           properties:
- *             userId:
+ *             id:
  *               type: string
  *             email:
  *               type: string

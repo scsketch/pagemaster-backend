@@ -108,7 +108,7 @@ describe('BookService', () => {
       const book = await service.createBook(testBooks[0]);
 
       // Act
-      const result = await service.getBookById(book.bookId);
+      const result = await service.getBookById(book.id);
 
       // Assert
       expect(result).toEqual(book);
@@ -136,7 +136,7 @@ describe('BookService', () => {
 
       // Assert
       expect(result).toMatchObject(testBooks[0]);
-      expect(result).toHaveProperty('bookId');
+      expect(result).toHaveProperty('id');
     });
   });
 
@@ -152,7 +152,7 @@ describe('BookService', () => {
       };
 
       // Act
-      const result = await service.updateBook(book.bookId, updateData);
+      const result = await service.updateBook(book.id, updateData);
 
       // Assert
       expect(result.price).toBe(updateData.price);
@@ -179,10 +179,10 @@ describe('BookService', () => {
       const book = await service.createBook(testBooks[0]);
 
       // Act
-      await service.deleteBook(book.bookId);
+      await service.deleteBook(book.id);
 
       // Assert
-      const getBookPromise = service.getBookById(book.bookId);
+      const getBookPromise = service.getBookById(book.id);
       await expect(getBookPromise).rejects.toThrow(BookNotFoundError);
     });
   });

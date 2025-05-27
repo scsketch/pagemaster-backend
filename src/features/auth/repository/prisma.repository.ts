@@ -5,7 +5,7 @@ import { RepositoryError } from '../errors';
 
 // Helper function to convert Prisma user to our User interface
 const convertPrismaUser = (prismaUser: any): User => ({
-  userId: prismaUser.userId,
+  id: prismaUser.id,
   email: prismaUser.email,
   password: prismaUser.password,
   createdAt: prismaUser.createdAt,

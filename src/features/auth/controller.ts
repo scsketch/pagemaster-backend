@@ -47,7 +47,7 @@ export class AuthController {
 
       const result = await this.service.login(email, password);
 
-      console.log('Successfully logged in user: ', result.user.userId);
+      console.log('Successfully logged in user: ', result.user.id);
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
@@ -96,7 +96,7 @@ export class AuthController {
       const { email, password }: SignUpInput = req.body;
 
       const { user, token } = await this.service.signup({ email, password });
-      console.log('Successfully signed up user: ', user.userId);
+      console.log('Successfully signed up user: ', user.id);
       res.status(201).json({ user, token });
     } catch (error) {
       if (error instanceof UserExistsError) {

@@ -46,13 +46,16 @@ export class BookService {
         throw new BookNotFoundError(id);
       }
 
-      const completeData = {
-        ...existingBook,
-        ...data,
-        bookId: id,
+      // Only update the fields that are provided in the request body
+      const updateData = {
+        title: data.title,
+        author: data.author,
+        genre: data.genre,
+        price: data.price,
+        description: data.description,
       };
 
-      return await this.repository.update(id, completeData);
+      return await this.repository.update(id, updateData);
     } catch (error) {
       console.error('Error updating book:', error);
       if (error instanceof BookNotFoundError) {

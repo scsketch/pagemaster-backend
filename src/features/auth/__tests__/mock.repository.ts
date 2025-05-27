@@ -12,7 +12,7 @@ export class MockAuthRepository implements AuthRepository {
   async create(data: UserInput): Promise<User> {
     const newUser: User = {
       ...data,
-      userId: uuidv4(),
+      id: uuidv4(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };

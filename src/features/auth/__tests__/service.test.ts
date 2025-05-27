@@ -30,7 +30,7 @@ describe('AuthService', () => {
       expect(result).toHaveProperty('token');
       expect(result.user.email).toBe(testUser.email);
       expect(result.user).not.toHaveProperty('password');
-      expect(result.user).toHaveProperty('userId');
+      expect(result.user).toHaveProperty('id');
       expect(result.user).toHaveProperty('createdAt');
       expect(result.user).toHaveProperty('updatedAt');
     });

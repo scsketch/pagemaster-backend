@@ -7,7 +7,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: {
-        userId: string;
+        id: string;
       };
     }
   }
@@ -31,7 +31,7 @@ export const createAuthMiddleware = () => {
     }
 
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
+      const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
       req.user = decoded;
       next();
     } catch (error) {

@@ -10,7 +10,7 @@ const PRISMA_ERROR_CODES = {
 
 // Helper function to convert Prisma book to our Book interface
 const convertPrismaBook = (prismaBook: any): Book => ({
-  bookId: prismaBook.bookId,
+  id: prismaBook.id,
   title: prismaBook.title,
   author: prismaBook.author,
   genre: prismaBook.genre,
@@ -73,7 +73,7 @@ export class PrismaBookRepository implements BookRepository {
 
   async findById(id: string): Promise<BookDetail | null> {
     try {
-      const book = await prisma.book.findUnique({ where: { bookId: id } });
+      const book = await prisma.book.findUnique({ where: { id: id } });
       return book ? convertPrismaBookDetail(book) : null;
     } catch (error: unknown) {
       console.error(`Database error while finding book with id ${id}:`, error);
@@ -84,6 +84,7 @@ export class PrismaBookRepository implements BookRepository {
   async create(data: CreateBookInput): Promise<BookDetail> {
     try {
       const book = await prisma.book.create({ data });
+      console.log('book: ', book);
       return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error('Database error while creating book:', error);
@@ -93,7 +94,7 @@ export class PrismaBookRepository implements BookRepository {
 
   async update(id: string, data: UpdateBookInput): Promise<BookDetail> {
     try {
-      const book = await prisma.book.update({ where: { bookId: id }, data });
+      const book = await prisma.book.update({ where: { id: id }, data });
       return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error(`Database error while updating book with id ${id}:`, error);
@@ -103,7 +104,7 @@ export class PrismaBookRepository implements BookRepository {
 
   async remove(id: string): Promise<void> {
     try {
-      await prisma.book.delete({ where: { bookId: id } });
+      await prisma.book.delete({ where: { id: id } });
     } catch (error: unknown) {
       if (error instanceof PrismaClientKnownRequestError && error.code === PRISMA_ERROR_CODES.RECORD_NOT_FOUND) {
         throw new RecordNotFoundError(id);

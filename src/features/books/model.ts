@@ -1,6 +1,6 @@
 // You could generate this from Prisma or define it manually
 export interface Book {
-  bookId: string;
+  id: string;
   title: string;
   author: string;
   genre: string;
