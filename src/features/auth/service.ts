@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { AuthRepository } from './repository/';
-import { User, UserInput } from './model';
+import { User, UserInput, UserLoginResult, UserSignupResult } from './model';
 import { UserExistsError, InvalidCredentialsError, LoginError, SignupError, LogoutError, AuthError } from './errors';
 
 const TOKEN_EXPIRATION = '24h';
@@ -16,7 +16,12 @@ export class AuthService {
     }
   }
 
-  login = async (email: string, password: string): Promise<{ token: string; user: User }> => {
+  private removePassword(user: User): Omit<User, 'password'> {
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  login = async (email: string, password: string): Promise<{ token: string; user: UserLoginResult }> => {
     const JWT_SECRET = process.env.JWT_SECRET;
     if (!JWT_SECRET) {
       console.error('Login failed: JWT secret is not configured');
@@ -35,14 +40,14 @@ export class AuthService {
       }
 
       const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
-      return { token, user };
+      return { token, user: this.removePassword(user) };
     } catch (error) {
       console.error('Error during login:', error);
       throw new LoginError('Login failed');
     }
   };
 
-  signup = async (userData: UserInput): Promise<{ token: string; user: User }> => {
+  signup = async (userData: UserInput): Promise<{ token: string; user: UserSignupResult }> => {
     const JWT_SECRET = process.env.JWT_SECRET;
     if (!JWT_SECRET) {
       console.error('Sign up failed: JWT secret is not configured');
@@ -63,7 +68,7 @@ export class AuthService {
       });
 
       const token = jwt.sign({ userId: user.userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRATION });
-      return { token, user };
+      return { token, user: this.removePassword(user) };
     } catch (error) {
       if (error instanceof UserExistsError) {
         throw error;

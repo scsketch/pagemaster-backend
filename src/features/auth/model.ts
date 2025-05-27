@@ -6,6 +6,9 @@ export interface User {
   updatedAt: Date;
 }
 
+export type UserSignupResult = Omit<User, 'password'>;
+export type UserLoginResult = Omit<User, 'password'>;
+
 export interface LoginInput {
   email: string;
   password: string;

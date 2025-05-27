@@ -8,16 +8,15 @@ import { BookFactory } from './features/books/factory';
 
 const apiRouter = Router();
 
-// Controllers
-const authController = AuthFactory.getController();
-const booksController = BookFactory.getController();
+const authFactory = new AuthFactory();
+const booksFactory = new BookFactory();
 
 // Auth middleware
 const authMiddleware = createAuthMiddleware();
 
 // Routers
-const authRouter = createAuthRouter(authController, authMiddleware as RequestHandler);
-const booksRouter = createBooksRouter(booksController);
+const authRouter = createAuthRouter(authFactory.getController(), authMiddleware as RequestHandler);
+const booksRouter = createBooksRouter(booksFactory.getController());
 
 // Public routes
 apiRouter.use('/auth', authRouter);

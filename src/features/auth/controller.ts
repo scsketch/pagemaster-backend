@@ -19,7 +19,7 @@ export class AuthController {
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
-        res.status(401).json({ error: 'Invalid credentials' });
+        res.status(401).json({ error: 'Unauthorized' });
         return;
       }
       console.error('Unexpected error during login:', error);
@@ -32,10 +32,8 @@ export class AuthController {
       const { email, password }: SignUpInput = req.body;
 
       const { user, token } = await this.service.signup({ email, password });
-      const { password: _, ...userWithoutPassword } = user;
-
       console.log('Successfully signed up user: ', user.userId);
-      res.status(201).json({ user: userWithoutPassword, token });
+      res.status(201).json({ user, token });
     } catch (error) {
       if (error instanceof UserExistsError) {
         console.error('Error during signup, user already exists');

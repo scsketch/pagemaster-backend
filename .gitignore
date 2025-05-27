@@ -1,12 +1,26 @@
+# Environment variables
+.env
+.env.test
+.env.local
+.env.*.local
+
 # Dependencies
 node_modules/
 
 # Build output
 dist/
 
-# Environment
-.env
-.env.local
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Prisma
 generated/prisma
