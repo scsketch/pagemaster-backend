@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export const createAuthMiddleware = (authService: AuthService) => {
+export const createAuthMiddleware = () => {
   const JWT_SECRET = process.env.JWT_SECRET;
 
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -31,13 +31,6 @@ export const createAuthMiddleware = (authService: AuthService) => {
     }
 
     try {
-      // Check if token is blacklisted
-      const isBlacklisted = await authService.isTokenBlacklisted(token);
-      if (isBlacklisted) {
-        console.error('Authentication failed: Token is blacklisted');
-        return res.status(401).json({ message: 'Unauthorized' });
-      }
-
       const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
       req.user = decoded;
       next();

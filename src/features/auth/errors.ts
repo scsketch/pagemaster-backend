@@ -28,8 +28,8 @@ export class UserExistsError extends AuthError {
 }
 
 export class InvalidCredentialsError extends AuthError {
-  constructor() {
-    super('Invalid email or password');
+  constructor(message: string = 'Invalid email or password') {
+    super(message);
     this.name = 'InvalidCredentialsError';
   }
 }

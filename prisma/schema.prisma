@@ -24,7 +24,8 @@ model Book {
   price       Decimal @db.Decimal(10, 2)
   description String? @db.VarChar(1000)
 
-  @@index([title, author])
+  @@index([title, author]) // We search by title and author
+  @@index([genre]) // We also search by genre
   @@map("books")
 }
 
