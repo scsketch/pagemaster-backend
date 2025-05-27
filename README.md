@@ -54,7 +54,9 @@ npm run prisma:seed
 
 ### 6. Start the development server
 
-Launch the application in development mode
+```bash
+npm run dev
+```
 
 The server will be available at http://localhost:3000
 
