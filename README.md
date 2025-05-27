@@ -37,7 +37,7 @@ cp .env.example .env
 ### 3. Start the PostgreSQL Docker container
 
 ```bash
-docker compose up
+docker compose up -d
 ```
 
 ### 4. Run the database migrations
@@ -58,11 +58,19 @@ Launch the application in development mode
 
 The server will be available at http://localhost:3000
 
+### 7. Stop the docker container when you're done
+
+```bash
+docker compose down
+```
+
 ## Running Tests
 
 ```bash
 npm test
 ```
+
+Note there are only a few tests for demonstration purposes.
 
 ## Project Structure
 
