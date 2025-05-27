@@ -69,6 +69,7 @@ docker compose down
 ## Running Tests
 
 ```bash
+cp .env.example .env.test
 npm test
 ```
 
