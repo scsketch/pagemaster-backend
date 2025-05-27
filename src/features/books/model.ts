@@ -19,4 +19,4 @@ export interface CreateBookInput {
   description?: string;
 }
 
-export type UpdateBookInput = Partial<CreateBookInput>;
+export type UpdateBookInput = CreateBookInput;

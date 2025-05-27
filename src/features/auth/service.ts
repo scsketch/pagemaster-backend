@@ -43,7 +43,7 @@ export class AuthService {
       return { token, user: this.removePassword(user) };
     } catch (error) {
       console.error('Error during login:', error);
-      throw new LoginError('Login failed');
+      throw error;
     }
   };
 

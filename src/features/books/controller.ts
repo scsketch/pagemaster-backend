@@ -13,6 +13,8 @@ export class BookController {
    *   get:
    *     summary: Get all books with pagination and filtering
    *     tags: [Books]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: query
    *         name: page
@@ -43,6 +45,12 @@ export class BookController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/BookResponse'
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       400:
    *         description: Invalid pagination parameters
    *         content:
@@ -63,14 +71,6 @@ export class BookController {
       const search = req.query.search as string | undefined;
       const genre = req.query.genre as string | undefined;
 
-      // Validate pagination parameters
-      if (page < 1 || limit < 1 || limit > 100) {
-        res.status(400).json({
-          error: 'Invalid pagination parameters. Page and limit must be positive numbers, and limit cannot exceed 100.',
-        });
-        return;
-      }
-
       const params: PaginationParams = { page, limit, search, genre };
       const result = await this.bookService.getBooks(params);
       res.json(result);
@@ -86,6 +86,8 @@ export class BookController {
    *   get:
    *     summary: Get a book by ID
    *     tags: [Books]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -100,6 +102,12 @@ export class BookController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/Book'
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       404:
    *         description: Book not found
    *         content:
@@ -148,6 +156,12 @@ export class BookController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/Book'
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       400:
    *         description: Invalid input
    *         content:
@@ -180,7 +194,7 @@ export class BookController {
    * @swagger
    * /books/{id}:
    *   put:
-   *     summary: Update a book
+   *     summary: Update a book (complete replacement)
    *     tags: [Books]
    *     security:
    *       - bearerAuth: []
@@ -204,6 +218,12 @@ export class BookController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/Book'
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       400:
    *         description: Invalid input
    *         content:
@@ -258,6 +278,12 @@ export class BookController {
    *     responses:
    *       204:
    *         description: Book deleted successfully
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       400:
    *         description: Invalid request
    *         content:

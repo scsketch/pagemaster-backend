@@ -93,6 +93,8 @@
  *           type: string
  *         genre:
  *           type: string
+ *         price:
+ *           type: number
  *         description:
  *           type: string
  *     BookResponse:

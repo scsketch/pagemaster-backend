@@ -28,8 +28,8 @@ export class AuthController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/LoginResponse'
-   *       401:
-   *         description: Invalid credentials
+   *       400:
+   *         description: Bad request
    *         content:
    *           application/json:
    *             schema:
@@ -51,7 +51,7 @@ export class AuthController {
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
-        res.status(401).json({ error: 'Unauthorized' });
+        res.status(400).json({ error: 'Bad request' });
         return;
       }
       console.error('Unexpected error during login:', error);
@@ -118,16 +118,14 @@ export class AuthController {
    *     security:
    *       - bearerAuth: []
    *     responses:
-   *       200:
+   *       204:
    *         description: Logout successful
+   *       401:
+   *         description: Unauthorized - Invalid or missing token
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: Successfully logged out
+   *               $ref: '#/components/schemas/Error'
    *       500:
    *         description: Server error
    *         content:
@@ -139,7 +137,7 @@ export class AuthController {
     try {
       await this.service.logout();
       console.log('Successfully logged out user');
-      res.status(200).json({ message: 'Successfully logged out' });
+      res.status(204).send();
     } catch (error) {
       console.error('Error during logout: ', error);
       res.status(500).json({ error: 'Internal server error' });
