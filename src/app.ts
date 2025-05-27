@@ -1,10 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import helmet from 'helmet';
 import { apiRouter } from './routes';
 import { errorHandler, notFoundHandler } from './middleware';
 import { securityMiddleware } from './middleware/security';
 import { routeLogger } from './middleware/logging';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 
 const app = express();
 
@@ -27,6 +28,22 @@ app.use(securityMiddleware);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
+
+// API Documentation - only available in development
+if (process.env.NODE_ENV === 'development') {
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      swaggerOptions: {
+        persistAuthorization: true,
+        displayRequestDuration: true,
+        showCommonExtensions: true,
+        docExpansion: 'none',
+      },
+    }),
+  );
+}
 
 // API
 app.use('/api/v1', apiRouter);

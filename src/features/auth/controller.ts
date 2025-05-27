@@ -9,6 +9,38 @@ export class AuthController {
 
   getService = () => this.service;
 
+  /**
+   * @swagger
+   * /auth/login:
+   *   post:
+   *     summary: Login user
+   *     tags: [Authentication]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/LoginRequest'
+   *     responses:
+   *       200:
+   *         description: Login successful
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/LoginResponse'
+   *       401:
+   *         description: Invalid credentials
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   *       500:
+   *         description: Server error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
   login = async (req: Request, res: Response) => {
     try {
       const { email, password }: LoginInput = req.body;
@@ -27,6 +59,38 @@ export class AuthController {
     }
   };
 
+  /**
+   * @swagger
+   * /auth/signup:
+   *   post:
+   *     summary: Register a new user
+   *     tags: [Authentication]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/SignupRequest'
+   *     responses:
+   *       201:
+   *         description: User successfully registered
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SignupResponse'
+   *       400:
+   *         description: Invalid input or user already exists
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   *       500:
+   *         description: Server error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
   signup = async (req: Request, res: Response) => {
     try {
       const { email, password }: SignUpInput = req.body;
@@ -45,6 +109,32 @@ export class AuthController {
     }
   };
 
+  /**
+   * @swagger
+   * /auth/logout:
+   *   post:
+   *     summary: Logout user
+   *     tags: [Authentication]
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Logout successful
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: Successfully logged out
+   *       500:
+   *         description: Server error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
   logout = async (_req: Request, res: Response) => {
     try {
       await this.service.logout();

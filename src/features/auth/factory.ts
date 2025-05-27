@@ -3,28 +3,25 @@ import { AuthService } from './service';
 import { PrismaAuthRepository, AuthRepository } from './repository/';
 
 export class AuthFactory {
-  private static repository: AuthRepository;
-  private static service: AuthService;
-  private static controller: AuthController;
+  private repository: AuthRepository;
+  private service: AuthService;
+  private controller: AuthController;
 
-  static getRepository(): AuthRepository {
-    if (!this.repository) {
-      this.repository = new PrismaAuthRepository();
-    }
+  constructor() {
+    this.repository = new PrismaAuthRepository();
+    this.service = new AuthService(this.repository);
+    this.controller = new AuthController(this.service);
+  }
+
+  getRepository(): AuthRepository {
     return this.repository;
   }
 
-  static getService(): AuthService {
-    if (!this.service) {
-      this.service = new AuthService(this.getRepository());
-    }
+  getService(): AuthService {
     return this.service;
   }
 
-  static getController(): AuthController {
-    if (!this.controller) {
-      this.controller = new AuthController(this.getService());
-    }
+  getController(): AuthController {
     return this.controller;
   }
 }
