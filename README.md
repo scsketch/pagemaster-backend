@@ -89,24 +89,15 @@ src/
 ```
 
 ## API Endpoints
+In development mode, the API documentation is available via Swagger at `http://localhost:3000/api-docs`. 
 
-### Authentication
+<img width="694" alt="image" src="https://github.com/user-attachments/assets/8bd300a0-bba1-4ee8-9aa6-8387a3f7f63c" />
 
-| Method | Endpoint              | Description       | Auth Required |
-| ------ | --------------------- | ----------------- | ------------- |
-| POST   | `/api/v1/auth/login`  | Login user        | No            |
-| POST   | `/api/v1/auth/signup` | Register new user | No            |
-| POST   | `/api/v1/auth/logout` | Logout user       | Yes           |
+To interact with the API via Swagger:
+1. Login or sign up
+2. Copy the token in the response and paste it into the Authorize section at the top of the page (click the Authorize button).
+3. Use the protected book routes.
 
-### Books
-
-| Method | Endpoint            | Description                                 | Auth Required |
-| ------ | ------------------- | ------------------------------------------- | ------------- |
-| GET    | `/api/v1/books`     | Get all books with pagination and filtering | Yes           |
-| GET    | `/api/v1/books/:id` | Get a book by ID                            | Yes           |
-| POST   | `/api/v1/books`     | Create a new book                           | Yes           |
-| PATCH  | `/api/v1/books/:id` | Update a book                               | Yes           |
-| DELETE | `/api/v1/books/:id` | Delete a book                               | Yes           |
 
 ### Query Parameters for GET /books
 
@@ -115,16 +106,13 @@ src/
 - `search`: Search term for title or author
 - `genre`: Filter by genre
 
-## API Documentation
-
-In development mode, the API documentation is available at `/api-docs`. You can interact with the API there as well.
 
 ## Notes
 
 ### Security
 
 - JWT-based authentication
-- Password hashing, not returning them in response
+- Password hashing, and excluding them from responses
 - CORS configuration
 - Input validation and sanitization
 - Filtering sensitive user info in logs
