@@ -19,7 +19,7 @@ export interface CreateBookInput {
   description?: string;
 }
 
-export type UpdateBookInput = Partial<CreateBookInput>;
+export type UpdateBookInput = CreateBookInput;
 
 // Internal types for Prisma operations
 export interface PrismaBookCreateInput {

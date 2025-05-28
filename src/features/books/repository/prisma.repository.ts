@@ -125,7 +125,23 @@ export class PrismaBookRepository implements BookRepository {
 
   async update(id: string, data: UpdateBookInput): Promise<BookDetail> {
     try {
-      const prismaData: PrismaBookUpdateInput = { ...data };
+      // First find or create the genre
+      const genre = await prisma.genre.upsert({
+        where: { name: data.genre },
+        update: { name: data.genre },
+        create: { name: data.genre },
+      });
+
+      console.log('WOAAAH');
+      console.log('genre: ', genre.id, ' - ', genre.name);
+
+      const prismaData: PrismaBookUpdateInput = {
+        title: data.title,
+        author: data.author,
+        price: data.price,
+        description: data.description,
+        genreId: genre.id,
+      };
 
       const book = await prisma.book.update({
         where: { id },
