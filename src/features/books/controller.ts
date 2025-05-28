@@ -310,7 +310,9 @@ export class BookController {
       res.status(204).send();
     } catch (error) {
       console.error('Error in deleteBook:', error);
-      if (error instanceof BookError) {
+      if (error instanceof BookNotFoundError) {
+        res.status(404).json({ error: 'Book not found' });
+      } else if (error instanceof BookError) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(500).json({ error: 'Failed to delete book' });

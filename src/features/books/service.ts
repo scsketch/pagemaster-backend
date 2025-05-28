@@ -71,7 +71,7 @@ export class BookService {
     } catch (error) {
       if (error instanceof RecordNotFoundError) {
         console.log(`Book with id ${id} not found during deletion`);
-        return;
+        throw new BookNotFoundError(id);
       }
       console.error('Error deleting book:', error);
       if (error instanceof RepositoryError) {

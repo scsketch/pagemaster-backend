@@ -34,6 +34,12 @@ export class AuthController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/Error'
+   *       401:
+   *         description: Unauthorized - Invalid email or password
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
    *       500:
    *         description: Server error
    *         content:
@@ -51,7 +57,7 @@ export class AuthController {
       res.json(result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
-        res.status(400).json({ error: 'Bad request' });
+        res.status(401).json({ error: 'Invalid email or password' });
         return;
       }
       console.error('Unexpected error during login:', error);
@@ -78,8 +84,8 @@ export class AuthController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/SignupResponse'
-   *       400:
-   *         description: Invalid input or user already exists
+   *       409:
+   *         description: Unable to create account
    *         content:
    *           application/json:
    *             schema:
@@ -101,7 +107,7 @@ export class AuthController {
     } catch (error) {
       if (error instanceof UserExistsError) {
         console.error('Error during signup, user already exists');
-        res.status(400).json({ error: 'Invalid request' });
+        res.status(409).json({ error: 'Unable to create account' });
         return;
       }
       console.error('Unexpected error during signup:', error);

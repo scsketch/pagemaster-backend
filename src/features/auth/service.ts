@@ -79,7 +79,7 @@ export class AuthService {
   };
 
   logout = async (): Promise<void> => {
-    // For a take-home, we can just let the token expire
+    // For now just do nothing and let the token expire naturally
     return;
   };
 }

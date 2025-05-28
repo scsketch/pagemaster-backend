@@ -89,15 +89,16 @@ src/
 ```
 
 ## API Endpoints
-In development mode, the API documentation is available via Swagger at `http://localhost:3000/api-docs`. 
+
+In development mode, the API documentation is available via Swagger at `http://localhost:3000/api-docs`.
 
 <img width="694" alt="image" src="https://github.com/user-attachments/assets/8bd300a0-bba1-4ee8-9aa6-8387a3f7f63c" />
 
 To interact with the API via Swagger:
+
 1. Login or sign up
 2. Copy the token in the response and paste it into the Authorize section at the top of the page (click the Authorize button).
 3. Use the protected book routes.
-
 
 ### Query Parameters for GET /books
 
@@ -106,8 +107,9 @@ To interact with the API via Swagger:
 - `search`: Search term for title or author
 - `genre`: Filter by genre
 
-
 ## Notes
+
+- You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). There's a comment in the service code explaining we're just letting the token expire naturally (24h).
 
 ### Security
 
