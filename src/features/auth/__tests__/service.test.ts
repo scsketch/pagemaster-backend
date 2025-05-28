@@ -84,7 +84,7 @@ describe('AuthService', () => {
       expect(result.user).not.toHaveProperty('password');
     });
 
-    it('should throw LoginError with wrong password', async () => {
+    it('should throw InvalidCredentialsError with wrong password', async () => {
       // Arrange
       const service = authFactory.getService();
       await service.signup(testUser);
@@ -93,10 +93,10 @@ describe('AuthService', () => {
       const loginPromise = service.login(testUser.email, 'wrongpassword');
 
       // Assert
-      await expect(loginPromise).rejects.toThrow(LoginError);
+      await expect(loginPromise).rejects.toThrow(InvalidCredentialsError);
     });
 
-    it('should throw LoginError with non-existent email', async () => {
+    it('should throw InvalidCredentialsError with non-existent email', async () => {
       // Arrange
       const service = authFactory.getService();
 
@@ -104,7 +104,7 @@ describe('AuthService', () => {
       const loginPromise = service.login('nonexistent@example.com', 'password123');
 
       // Assert
-      await expect(loginPromise).rejects.toThrow(LoginError);
+      await expect(loginPromise).rejects.toThrow(InvalidCredentialsError);
     });
   });
 });

@@ -149,6 +149,9 @@ describe('BookService', () => {
       const updateData = {
         price: 19.99,
         description: 'Updated description',
+        title: 'Updated title',
+        author: 'Updated author',
+        genre: 'Updated genre',
       };
 
       // Act
@@ -157,7 +160,9 @@ describe('BookService', () => {
       // Assert
       expect(result.price).toBe(updateData.price);
       expect(result.description).toBe(updateData.description);
-      expect(result.title).toBe(book.title); // Unchanged fields should remain the same
+      expect(result.title).toBe(updateData.title);
+      expect(result.author).toBe(updateData.author);
+      expect(result.genre).toBe(updateData.genre);
     });
 
     it('should throw BookNotFoundError when updating non-existent book', async () => {
@@ -165,7 +170,13 @@ describe('BookService', () => {
       const service = bookFactory.getService();
 
       // Act
-      const updatePromise = service.updateBook('non-existent-id', { price: 19.99 });
+      const updatePromise = service.updateBook('non-existent-id', {
+        price: 19.99,
+        description: 'Updated description',
+        title: 'Updated title',
+        author: 'Updated author',
+        genre: 'Updated genre',
+      });
 
       // Assert
       await expect(updatePromise).rejects.toThrow(BookNotFoundError);
