@@ -111,6 +111,10 @@ To interact with the API via Swagger:
 
 - You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). For now we're just letting the token expire naturally (24h).
 
+- Database schema configuration and migrations can be found in the `/prisma` folder.
+
+- Middlewares that handle validation, security, logging, error handling can be found in `/middleware`.
+
 ### Security
 
 - JWT-based authentication
