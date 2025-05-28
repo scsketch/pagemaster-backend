@@ -94,6 +94,16 @@ In development mode, the API documentation is available via Swagger at `http://l
 
 <img width="694" alt="image" src="https://github.com/user-attachments/assets/8bd300a0-bba1-4ee8-9aa6-8387a3f7f63c" />
 
+## Databasse Schema
+
+You can find the schema defined via prisma in `/prisma/schema.prisma`. The seed data is in `seed.ts`.
+
+You can use Prisma Studio to conveniently inspect the database at `http://localhost:5555/`
+
+```bash
+npx prisma studio
+```
+
 To interact with the API via Swagger:
 
 1. Login or sign up
@@ -110,8 +120,6 @@ To interact with the API via Swagger:
 ## Notes
 
 - You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). For now we're just letting the token expire naturally (24h).
-
-- Database schema configuration and migrations can be found in the `/prisma` folder.
 
 - Middlewares that handle validation, security, logging, error handling can be found in `/middleware`.
 

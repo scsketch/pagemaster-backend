@@ -1,6 +1,13 @@
 import prisma from '../../../config/prisma';
 import { BookRepository, PaginationParams, PaginatedResult } from './repository';
-import { Book, BookDetail, CreateBookInput, UpdateBookInput } from '../model';
+import {
+  Book,
+  BookDetail,
+  CreateBookInput,
+  UpdateBookInput,
+  PrismaBookCreateInput,
+  PrismaBookUpdateInput,
+} from '../model';
 import { RepositoryError, RecordNotFoundError } from '../errors';
 import { PrismaClientKnownRequestError } from '../../../../generated/prisma/runtime/library';
 
@@ -13,7 +20,7 @@ const convertPrismaBook = (prismaBook: any): Book => ({
   id: prismaBook.id,
   title: prismaBook.title,
   author: prismaBook.author,
-  genre: prismaBook.genre,
+  genre: prismaBook.genre.name,
   price: Number(prismaBook.price),
 });
 
@@ -43,7 +50,7 @@ export class PrismaBookRepository implements BookRepository {
               }
             : {},
           // Genre condition
-          genre ? { genre: { equals: genre, mode: 'insensitive' as const } } : {},
+          genre ? { genre: { name: { equals: genre, mode: 'insensitive' as const } } } : {},
         ],
       };
 
@@ -56,6 +63,7 @@ export class PrismaBookRepository implements BookRepository {
         skip,
         take: limit,
         orderBy: { id: 'asc' },
+        include: { genre: true },
       });
 
       return {
@@ -73,7 +81,10 @@ export class PrismaBookRepository implements BookRepository {
 
   async findById(id: string): Promise<BookDetail | null> {
     try {
-      const book = await prisma.book.findUnique({ where: { id: id } });
+      const book = await prisma.book.findUnique({
+        where: { id },
+        include: { genre: true },
+      });
       return book ? convertPrismaBookDetail(book) : null;
     } catch (error: unknown) {
       console.error(`Database error while finding book with id ${id}:`, error);
@@ -83,8 +94,28 @@ export class PrismaBookRepository implements BookRepository {
 
   async create(data: CreateBookInput): Promise<BookDetail> {
     try {
-      const book = await prisma.book.create({ data });
-      console.log('book: ', book);
+      // First find or create the genre
+      const genre = await prisma.genre.upsert({
+        where: { name: data.genre },
+        update: {},
+        create: { name: data.genre },
+      });
+
+      // Convert to Prisma input type
+      const prismaData: PrismaBookCreateInput = {
+        title: data.title,
+        author: data.author,
+        genreId: genre.id,
+        price: data.price,
+        description: data.description,
+      };
+
+      // Then create the book with the genre
+      const book = await prisma.book.create({
+        data: prismaData,
+        include: { genre: true },
+      });
+
       return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error('Database error while creating book:', error);
@@ -94,7 +125,13 @@ export class PrismaBookRepository implements BookRepository {
 
   async update(id: string, data: UpdateBookInput): Promise<BookDetail> {
     try {
-      const book = await prisma.book.update({ where: { id: id }, data });
+      const prismaData: PrismaBookUpdateInput = { ...data };
+
+      const book = await prisma.book.update({
+        where: { id },
+        data: prismaData,
+        include: { genre: true },
+      });
       return convertPrismaBookDetail(book);
     } catch (error: unknown) {
       console.error(`Database error while updating book with id ${id}:`, error);
@@ -104,7 +141,7 @@ export class PrismaBookRepository implements BookRepository {
 
   async remove(id: string): Promise<void> {
     try {
-      await prisma.book.delete({ where: { id: id } });
+      await prisma.book.delete({ where: { id } });
     } catch (error: unknown) {
       if (error instanceof PrismaClientKnownRequestError && error.code === PRISMA_ERROR_CODES.RECORD_NOT_FOUND) {
         throw new RecordNotFoundError(id);

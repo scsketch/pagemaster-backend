@@ -30,9 +30,10 @@ const bookDescriptions = {
 async function main() {
   // Clear existing data
   await prisma.book.deleteMany();
+  await prisma.genre.deleteMany();
 
-  // Seed books
-  const books = [
+  // Get unique genres from book data
+  const bookData = [
     {
       title: 'To Kill a Mockingbird',
       author: 'Homer',
@@ -735,13 +736,42 @@ async function main() {
     },
   ];
 
-  for (const book of books) {
-    await prisma.book.create({
-      data: book,
-    });
-  }
+  // Extract unique genres
+  const uniqueGenres = [...new Set(bookData.map((book) => book.genre))];
 
-  console.log(`Database has been seeded with ${books.length} books.`);
+  // Create genres first
+  const genres = await Promise.all(
+    uniqueGenres.map((genreName) =>
+      prisma.genre.create({
+        data: {
+          name: genreName,
+        },
+      }),
+    ),
+  );
+
+  // Create a map of genre names to their IDs
+  const genreMap = genres.reduce((map, genre) => {
+    map[genre.name] = genre.id;
+    return map;
+  }, {} as Record<string, string>);
+
+  // Create books with proper genre relationships
+  await Promise.all(
+    bookData.map((book) =>
+      prisma.book.create({
+        data: {
+          title: book.title,
+          author: book.author,
+          genreId: genreMap[book.genre],
+          price: book.price,
+          description: book.description,
+        },
+      }),
+    ),
+  );
+
+  console.log('Database has been seeded. 🌱');
 }
 
 main()

@@ -3,7 +3,7 @@ export interface Book {
   id: string;
   title: string;
   author: string;
-  genre: string;
+  genre: string; // This is the genre name
   price: number;
 }
 
@@ -14,9 +14,26 @@ export interface BookDetail extends Book {
 export interface CreateBookInput {
   title: string;
   author: string;
-  genre: string;
+  genre: string; // This is the genre name
   price: number;
   description?: string;
 }
 
-export type UpdateBookInput = CreateBookInput;
+export type UpdateBookInput = Partial<CreateBookInput>;
+
+// Internal types for Prisma operations
+export interface PrismaBookCreateInput {
+  title: string;
+  author: string;
+  genreId: string;
+  price: number;
+  description?: string;
+}
+
+export interface PrismaBookUpdateInput {
+  title?: string;
+  author?: string;
+  genreId?: string;
+  price?: number;
+  description?: string;
+}
