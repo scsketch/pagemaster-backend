@@ -73,7 +73,6 @@ export class BookController {
 
       const params: PaginationParams = { page, limit, search, genre };
       const result = await this.bookService.getBooks(params);
-      console.log('book: ', result.data[0]);
       res.json(result);
     } catch (error) {
       console.error('Error in getBooks:', error);
