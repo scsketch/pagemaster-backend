@@ -109,7 +109,7 @@ To interact with the API via Swagger:
 
 ## Notes
 
-- You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). There's a comment in the service code explaining we're just letting the token expire naturally (24h).
+- You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). For now we're just letting the token expire naturally (24h).
 
 ### Security
 
