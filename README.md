@@ -20,11 +20,11 @@ Node.js + Express + Typescript backend for the Pagemaster bookstore.
 - npm
 - Docker and docker-compose
 
-## Run the application
+## Run the Application 
 
 Follow these steps to get the application running:
 
-### 1. Install Dependencies
+### 1. Install dependencies
 
 ```bash
 npm install
@@ -83,7 +83,7 @@ In development mode, the API documentation is available via Swagger at `http://l
 
 <img width="694" alt="image" src="https://github.com/user-attachments/assets/8bd300a0-bba1-4ee8-9aa6-8387a3f7f63c" />
 
-To interact with the API via Swagger:
+To test the API in Swagger:
 
 1. Login or sign up
 2. Copy the token in the response and paste it into the Authorize section at the top of the page (click the Authorize button).
