@@ -1,4 +1,5 @@
 # Pagemaster Backend
+Node.js + Express + Typescript backend for the Pagemaster bookstore.
 
 ## Technology and Tools
 
