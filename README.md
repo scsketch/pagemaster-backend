@@ -11,7 +11,7 @@
 - **Authentication:** JWT
 - **Validation:** Express Validator
 - **Containerization:** Docker
-- **AI Tooling** Cursor IDE
+- **AI Tooling** Cursor: IDE
 
 ## Prerequisites
 
