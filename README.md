@@ -69,42 +69,19 @@ docker compose down
 ```
 
 ## Running Tests
+There are only a few tests for demonstration purposes.
 
 ```bash
 cp .env.example .env.test
 npm test
 ```
 
-Note there are only a few tests for demonstration purposes.
-
-## Project Structure
-
-```
-src/
-├── config/
-├── features/
-│   ├── auth/
-│   └── books/
-├── middleware/
-├── test/
-└── app.ts
-```
 
 ## API Endpoints
 
 In development mode, the API documentation is available via Swagger at `http://localhost:3000/api-docs`.
 
 <img width="694" alt="image" src="https://github.com/user-attachments/assets/8bd300a0-bba1-4ee8-9aa6-8387a3f7f63c" />
-
-## Databasse Schema
-
-You can find the schema defined via prisma in `/prisma/schema.prisma`. The seed data is in `seed.ts`.
-
-You can use Prisma Studio to conveniently inspect the database at `http://localhost:5555/`
-
-```bash
-npx prisma studio
-```
 
 To interact with the API via Swagger:
 
@@ -119,14 +96,23 @@ To interact with the API via Swagger:
 - `search`: Search term for title or author
 - `genre`: Filter by genre
 
+## Database Schema
+
+You can find the schema defined via prisma in `/prisma/schema.prisma`. The seed data is in `seed.ts`.
+
+You can run Prisma Studio to visually inspect the database at `http://localhost:5555/`
+
+```bash
+npx prisma studio
+```
+
 ## Notes
 
 - You need to be authorized to call `/logout`, but it doesn't do anything to the token (no blacklist, etc). For now we're just letting the token expire naturally (24h).
 
 - Middlewares that handle validation, security, logging, error handling can be found in `/middleware`.
 
-### Security
-
+#### Security
 - JWT-based authentication
 - Password hashing, and excluding them from responses
 - CORS configuration
