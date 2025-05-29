@@ -16,8 +16,7 @@ Node.js + Express + Typescript backend for the Pagemaster bookstore.
 
 ## Prerequisites
 
-- Node.js
-- npm
+- Node.js https://nodejs.org
 - Docker and docker-compose
 
 ## Run the Application 
